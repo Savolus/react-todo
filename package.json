@@ -1,5 +1,5 @@
 {
-  "name": "react-learning",
+  "name": "some",
   "version": "1.0.0",
   "description": "Learning React",
   "main": "index.js",
@@ -9,26 +9,10 @@
     "react-scripts": "^4.0.1",
     "web-vitals": "^0.2.4"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Savolus/react-learning.git"
-  },
-  "keywords": [
-    "js",
-    "react",
-    "react-dom"
-  ],
-  "author": "Mykola Dorohyi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Savolus/react-learning/issues"
-  },
-  "homepage": "https://github.com/Savolus/react-learning#readme",
   "browserslist": {
     "production": [
       ">0.2%",
