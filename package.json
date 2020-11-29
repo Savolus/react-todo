@@ -1,7 +1,7 @@
 {
-  "name": "music-player-app",
+  "name": "react-learning",
   "version": "1.0.0",
-  "description": "Music player using react",
+  "description": "Learning React",
   "main": "index.js",
   "dependencies": {
     "react": "^17.0.1",
@@ -16,20 +16,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Savolus/Savolus.github.io.git"
+    "url": "git+https://github.com/Savolus/react-learning.git"
   },
   "keywords": [
     "js",
     "react",
-    "react-dom",
-    "music-player-app"
+    "react-dom"
   ],
   "author": "Mykola Dorohyi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Savolus/Savolus.github.io/issues"
+    "url": "https://github.com/Savolus/react-learning/issues"
   },
-  "homepage": "https://github.com/Savolus/Savolus.github.io#readme",
+  "homepage": "https://github.com/Savolus/react-learning#readme",
   "browserslist": {
     "production": [
       ">0.2%",
