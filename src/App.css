@@ -2,56 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 50vh;
 }
 
 body {
     display: flex;
-    min-height: 100vh;
     align-items: center;
     justify-content: center;
-    background-color: rgb(102, 102, 102);
-}
-
-.box {
-    display: flex;
-    width: 75vh;
-    height: 75vh;
-    min-height: 75vh;
-    color: rgb(231, 231, 231);
-    background-color: rgb(209, 121, 89);
-    border: black 5px solid;
-    border-radius: 50%;
-    box-shadow: rgb(53, 53, 53) 4px 2px 2px;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-}
-
-.box .decrement, .box .increment {
-    width: 20vh;
-    height: 20vh;
-    border: black 5px solid;
-    border-radius: 50vh;
-    box-shadow: rgb(53, 53, 53) 2px 1px 1px;
-    position: absolute;
-    font-size: 10vh;
-    bottom: 0;
-}
-
-.box .decrement:focus, .box .increment:focus {
-    outline: none;
-}
-
-.box .decrement:hover, .box .increment:hover {
-    cursor: pointer;
-}
-
-.box .decrement {
-    left: 0;
-}
-
-.box .increment {
-    right: 0;
 }
