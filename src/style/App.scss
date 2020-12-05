@@ -1,0 +1,137 @@
+@import './variables';
+@import './body';
+
+#root {
+    background-color: $basicBackground;
+    height: (100% / 1.5);
+    border-radius: $rootWidth / 15;
+    width: $rootWidth;
+    margin-top: -10%;
+    padding-top: 10px;
+}
+
+.logo {
+    display: flex;
+    font-size: 48px;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+
+    img {
+        height: 48px;
+        width: 48px;
+    }
+}
+
+.outputting-box {
+    height: 90%;
+    border-radius: $rootWidth / 15;
+    padding: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    .todo {
+        width: 100%;
+        background-color: $basicBackground;
+        border-radius: $rootWidth / 20;
+        font-size: 24px;
+        @extend %border404;
+        margin: 8.8px 0;
+        height: $todoHeight;
+        display: flex;
+        overflow: hidden;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            @extend %border849;
+        }
+
+        input[type=checkbox] {
+            width: $todoHeight / 2;
+            height: $todoHeight / 2;
+            margin: $todoHeight / 4;
+            cursor: pointer;
+        }
+
+        .todo-label {
+            margin: auto 0;
+        }
+    }
+}
+
+.add-button {
+    background-color: $addBackground;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    height: $addButtonSize;
+    width: $addButtonSize;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    img {
+        margin: $addButtonSize / 4;
+        height: $addButtonSize / 2;
+        width: $addButtonSize / 2;
+    }
+}
+
+.creating-box {
+    margin-top: -70px;
+    height: 150px;
+    width: $rootWidth;
+    background-color: $basicBackground;
+    border-radius: $rootWidth / 15;
+    visibility: hidden;
+    display: block;
+    padding: 15px;
+    font-size: 24px;
+    text-align: center;
+
+    input[type=text] {
+        @extend %button;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    button {
+        @extend %button;
+        margin-bottom: 5px;
+    }
+
+    .add-todo, .remove-todo {
+        width: 49%;
+    }
+
+    .add-todo {
+        margin-right: 1%;
+    }
+
+    .remove-todo {
+        margin-left: 1%;
+    }
+}
+
+.preview {
+    width: $rootWidth;
+    background-color: $basicBackground;
+    border-radius: $rootWidth / 20;
+    font-size: 24px;
+    @extend %border404;
+    margin: 7.8px 0;
+    height: 48px;
+    padding: 8px 12px;
+    overflow: hidden;
+    transition: .5s;
+}

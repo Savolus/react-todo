@@ -1,0 +1,26 @@
+$rootWidth: 100vh / 2.5;
+$todoHeight: 50px;
+$gradientFrom: #ffc2c2;
+$gradientTo: #996fc9;
+$basicBackground: #ffffff;
+$addBackground: #ffba74;
+$addButtonSize: 75px;
+%border404 {
+    border: .2px solid rgba(128, 128, 128, 0.404);
+    box-shadow: .7px .7px .7px rgba(128, 128, 128, 0.404);
+}
+%border849 {
+    border: .2px solid rgba(128, 128, 128, 0.404);
+    box-shadow: .7px .7px .7px rgba(128, 128, 128, 0.404);
+}
+%button {
+    @extend %border849;
+    border-radius: $rootWidth / 35;
+    background: none;
+    margin-top: 5px;
+    outline: none;
+    height: 35px;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
