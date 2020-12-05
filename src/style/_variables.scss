@@ -5,22 +5,27 @@ $gradientTo: #996fc9;
 $basicBackground: #ffffff;
 $addBackground: #ffba74;
 $addButtonSize: 75px;
+$basicGrey404: rgba(128, 128, 128, 0.404);
+$basicGrey849: rgba(128, 128, 128, 0.849);
 %border404 {
-    border: .2px solid rgba(128, 128, 128, 0.404);
-    box-shadow: .7px .7px .7px rgba(128, 128, 128, 0.404);
-}
-%border849 {
-    border: .2px solid rgba(128, 128, 128, 0.404);
-    box-shadow: .7px .7px .7px rgba(128, 128, 128, 0.404);
+    border: .2px solid $basicGrey404;
+    box-shadow: .7px .7px .7px $basicGrey404;
 }
 %button {
-    @extend %border849;
+    @extend %border404;
     border-radius: $rootWidth / 35;
     background: none;
     margin-top: 5px;
     outline: none;
-    height: 35px;
+    height: 40px;
     padding: 10px;
     font-size: 20px;
     cursor: pointer;
+}
+%text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

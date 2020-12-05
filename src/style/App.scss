@@ -2,12 +2,20 @@
 @import './body';
 
 #root {
-    background-color: $basicBackground;
-    height: (100% / 1.5);
-    border-radius: $rootWidth / 15;
-    width: $rootWidth;
-    margin-top: -10%;
-    padding-top: 10px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > div {
+        background-color: $basicBackground;
+        height: (100% / 1.5);
+        border-radius: $rootWidth / 15;
+        width: $rootWidth;
+        padding-top: 10px;
+        transition: .6s;
+    }
 }
 
 .logo {
@@ -30,6 +38,19 @@
     overflow: hidden;
     overflow-y: scroll;
 
+    .empty {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .5s;
+
+        img {
+            width: 65%;
+            transform: translateY(-15%);
+        }
+    }
+
     .todo {
         width: 100%;
         background-color: $basicBackground;
@@ -37,9 +58,11 @@
         font-size: 24px;
         @extend %border404;
         margin: 8.8px 0;
+        padding-right: 5px;
         height: $todoHeight;
         display: flex;
         overflow: hidden;
+        align-items: center;
 
         &:first-child {
             margin-top: 0;
@@ -49,19 +72,29 @@
             margin-bottom: 0;
         }
 
-        &:hover {
-            @extend %border849;
-        }
-
         input[type=checkbox] {
-            width: $todoHeight / 2;
-            height: $todoHeight / 2;
+            min-width: $todoHeight / 2;
+            min-height: $todoHeight / 2;
             margin: $todoHeight / 4;
             cursor: pointer;
         }
 
         .todo-label {
             margin: auto 0;
+            @extend %text;
+            width: 100%;
+            cursor: text;
+        }
+
+        .remove-todo-one {
+            text-align: center;
+            background: none;
+            outline: none;
+            @extend %border404;
+            border-radius: 50%;
+            min-width: 30px;
+            height: 30px;
+            cursor: pointer;
         }
     }
 }
@@ -89,7 +122,7 @@
 
 .creating-box {
     margin-top: -70px;
-    height: 150px;
+    height: 180px;
     width: $rootWidth;
     background-color: $basicBackground;
     border-radius: $rootWidth / 15;
@@ -103,6 +136,7 @@
         @extend %button;
         margin-top: 20px;
         width: 100%;
+        cursor: text;
     }
 
     button {
@@ -121,6 +155,13 @@
     .remove-todo {
         margin-left: 1%;
     }
+
+    .count-todo {
+        @extend %button;
+        cursor: text;
+        width: 100%;
+        margin: 0;
+    }
 }
 
 .preview {
@@ -130,8 +171,8 @@
     font-size: 24px;
     @extend %border404;
     margin: 7.8px 0;
-    height: 48px;
-    padding: 8px 12px;
+    height: 60px;
+    padding: 15px;
     overflow: hidden;
     transition: .5s;
 }

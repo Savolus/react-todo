@@ -1,47 +1,51 @@
-.outputting-box .todo, .preview {
+.creating-box input[type=text], .creating-box button, .creating-box .count-todo, .outputting-box .todo, .outputting-box .todo .remove-todo-one, .preview {
   border: 0.2px solid rgba(128, 128, 128, 0.404);
   -webkit-box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
           box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
 }
 
-.creating-box input[type=text], .creating-box button, .outputting-box .todo:hover {
-  border: 0.2px solid rgba(128, 128, 128, 0.404);
-  -webkit-box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
-          box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
-}
-
-.creating-box input[type=text], .creating-box button {
+.creating-box input[type=text], .creating-box button, .creating-box .count-todo {
   border-radius: 1.14286vh;
   background: none;
   margin-top: 5px;
   outline: none;
-  height: 35px;
+  height: 40px;
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
 }
 
-.outputting-box .todo, .preview {
+.outputting-box .todo .todo-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.creating-box input[type=text], .creating-box button, .creating-box .count-todo, .outputting-box .todo, .outputting-box .todo .remove-todo-one, .preview {
   border: 0.2px solid rgba(128, 128, 128, 0.404);
   -webkit-box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
           box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
 }
 
-.creating-box input[type=text], .creating-box button, .outputting-box .todo:hover {
-  border: 0.2px solid rgba(128, 128, 128, 0.404);
-  -webkit-box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
-          box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
-}
-
-.creating-box input[type=text], .creating-box button {
+.creating-box input[type=text], .creating-box button, .creating-box .count-todo {
   border-radius: 1.14286vh;
   background: none;
   margin-top: 5px;
   outline: none;
-  height: 35px;
+  height: 40px;
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
+}
+
+.outputting-box .todo .todo-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 * {
@@ -63,6 +67,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   background: linear-gradient(135deg, #ffc2c2, #996fc9);
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -71,12 +76,27 @@ body {
 }
 
 #root {
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#root > div {
   background-color: #ffffff;
   height: 66.66667%;
   border-radius: 2.66667vh;
   width: 40vh;
-  margin-top: -10%;
   padding-top: 10px;
+  -webkit-transition: .6s;
+  transition: .6s;
 }
 
 .logo {
@@ -106,17 +126,42 @@ body {
   overflow-y: scroll;
 }
 
+.outputting-box .empty {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.outputting-box .empty img {
+  width: 65%;
+  -webkit-transform: translateY(-15%);
+          transform: translateY(-15%);
+}
+
 .outputting-box .todo {
   width: 100%;
   background-color: #ffffff;
   border-radius: 2vh;
   font-size: 24px;
   margin: 8.8px 0;
+  padding-right: 5px;
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .outputting-box .todo:first-child {
@@ -128,14 +173,26 @@ body {
 }
 
 .outputting-box .todo input[type=checkbox] {
-  width: 25px;
-  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
   margin: 12.5px;
   cursor: pointer;
 }
 
 .outputting-box .todo .todo-label {
   margin: auto 0;
+  width: 100%;
+  cursor: text;
+}
+
+.outputting-box .todo .remove-todo-one {
+  text-align: center;
+  background: none;
+  outline: none;
+  border-radius: 50%;
+  min-width: 30px;
+  height: 30px;
+  cursor: pointer;
 }
 
 .add-button {
@@ -164,7 +221,7 @@ body {
 
 .creating-box {
   margin-top: -70px;
-  height: 150px;
+  height: 180px;
   width: 40vh;
   background-color: #ffffff;
   border-radius: 2.66667vh;
@@ -178,6 +235,7 @@ body {
 .creating-box input[type=text] {
   margin-top: 20px;
   width: 100%;
+  cursor: text;
 }
 
 .creating-box button {
@@ -196,14 +254,20 @@ body {
   margin-left: 1%;
 }
 
+.creating-box .count-todo {
+  cursor: text;
+  width: 100%;
+  margin: 0;
+}
+
 .preview {
   width: 40vh;
   background-color: #ffffff;
   border-radius: 2vh;
   font-size: 24px;
   margin: 7.8px 0;
-  height: 48px;
-  padding: 8px 12px;
+  height: 60px;
+  padding: 15px;
   overflow: hidden;
   -webkit-transition: .5s;
   transition: .5s;
