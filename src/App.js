@@ -1,16 +1,17 @@
 import React, { useState , useRef, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import TodoList from './TodoList'
 import Preview from './Preview'
+import Output from './Output'
+import Create from './Create'
+import Logo from './Logo'
+import Add from './Add'
 import Show from './image/show.png'
 import Hide from './image/hide.png'
-import Logo from './image/todo-white.png'
-import Empty from './image/empty_with_text.png'
 import './style/App.css';
 
 const LOCAL_STORAGE_TODOS = 'userTodos.todos'
-const LOCAL_STORAGE_VISIBILITY = 'addVisibility.visibility'
-const LOCAL_STORAGE_STYLE = 'local.css'
+const LOCAL_STORAGE_VISIBILITY = 'addBoxVisibility.visibility'
+const LOCAL_STORAGE_STYLE = 'localStyle.css'
 
 function App() {
 	const [style, setStyle] = useState({ marginTop: "0" })
@@ -18,8 +19,7 @@ function App() {
 	const [src, setSrc] = useState(Show)
 	const [todos, setTodos] = useState([])
 	const [title, setTitle] = useState('')
-	const [titleSave, setTitleSave] = useState(title)
-	const todoTitleRef = useRef()
+	const [prevTitle, setprevTitle] = useState(title)
 
 	useEffect(() => {
 		const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS))
@@ -37,15 +37,24 @@ function App() {
 	}, [todos, visibility, style])
 
 	useEffect(() => {
-		visibility === 'hidden' ? setSrc(Show): setSrc(Hide)
-		const add = document.querySelector('.creating-box')
-		add.style.visibility = visibility
+		const creatingBox = document.querySelector('.creating-box')
+		creatingBox.style.visibility = visibility
+		const input = creatingBox.querySelector('input[type=text]')
+		input.focus()
 
-		if (visibility === 'visible') {
-			setTitle(titleSave)
-		} else {
-			setTitleSave(title)
-			setTitle('')
+		visibility === 'hidden' ? 
+			setSrc(Show) : 
+			setSrc(Hide)
+
+		switch (visibility) {
+			case 'hidden':
+				setprevTitle(title)
+				setTitle('')
+				break
+			case 'visible':
+				setTitle(prevTitle)
+				setprevTitle('')
+				break
 		}
 	}, [visibility])
 
@@ -63,32 +72,6 @@ function App() {
 				break
 		}
 	}, [title, visibility])
-
-	function addPreview() {
-		const title = todoTitleRef.current.value
-		setTitle(title)
-	}
-
-	function pressEnter(event) {
-		event.keyCode === 13 && addTodo()
-	}
-
-	function addTodo() {
-		const title = todoTitleRef.current.value
-		title && setTodos(prev => [...prev, {id: uuidv4(), title, complete: false}])
-		todoTitleRef.current.value = null
-		setTitle('')
-	}
-
-	function removeTodo() {
-		const newTodos = todos.filter(todo => !todo.complete)
-		setTodos(newTodos)
-	}
-
-	function removeOneTodo(id) {
-		const newTodos = todos.filter(todo => todo.id != id)
-		setTodos(newTodos)
-	}
 
 	function toggleTodo(id) {
 		const newTodos = [...todos]
@@ -110,27 +93,10 @@ function App() {
 
 	return (
 		<div style={style}>
-			<div className="logo" title="TODO">
-				<img src={Logo} />
-				TODO
-			</div>
-			<div className="outputting-box">
-				{ todos.length === 0 && 
-					<div className="empty" title="empty">
-						<img src={Empty} />
-					</div> ||
-				<TodoList todos={todos} toggleTodo={toggleTodo} removeOneTodo={removeOneTodo} />
-				}
-			</div>
-			<div className="add-button" title="add" onClick={() => toggleVisibility()}>
-				<img src={src} />
-			</div>
-			<div className="creating-box">
-				<input className="input-todo" title="todo title" ref={todoTitleRef} type="text" onChange={addPreview} onKeyUp={pressEnter} placeholder="Todo..." />
-				<button className="add-todo" title="add" onClick={addTodo} >Add</button>
-				<button className="remove-todo" title="remove completed" onClick={removeTodo}>Remove</button>
-				<div className="count-todo">{todos.filter(todo => !todo.complete).length} left to do</div>
-			</div>
+			<Logo />
+			<Output todos={todos} toggleTodo={toggleTodo} />
+			<Add src={src} toggleVisibility={toggleVisibility} />
+			<Create todos={todos} setTodos={setTodos} setTitle={setTitle} />
 			{ title && <Preview title={title} /> }
 		</div>
 	)

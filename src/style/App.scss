@@ -54,7 +54,7 @@
     .todo {
         width: 100%;
         background-color: $basicBackground;
-        border-radius: $rootWidth / 20;
+        border-radius: $rootWidth / 35;
         font-size: 24px;
         @extend %border404;
         margin: 8.8px 0;
@@ -83,7 +83,6 @@
             margin: auto 0;
             @extend %text;
             width: 100%;
-            cursor: text;
         }
 
         .remove-todo-one {
