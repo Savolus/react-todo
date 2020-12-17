@@ -4,10 +4,12 @@
           box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
 }
 
+.creating-box input[type=text], .creating-box button, .creating-box .count-todo, .outputting-box .todo {
+  border-radius: 0.88889vh;
+}
+
 .creating-box input[type=text], .creating-box button, .creating-box .count-todo {
-  border-radius: 1.14286vh;
   background: none;
-  margin-top: 5px;
   outline: none;
   height: 40px;
   padding: 10px;
@@ -15,11 +17,11 @@
   cursor: pointer;
 }
 
-.outputting-box .todo .todo-label {
+.outputting-box .todo .todo-label, .preview {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
 
@@ -29,10 +31,12 @@
           box-shadow: 0.7px 0.7px 0.7px rgba(128, 128, 128, 0.404);
 }
 
+.creating-box input[type=text], .creating-box button, .creating-box .count-todo, .outputting-box .todo {
+  border-radius: 0.88889vh;
+}
+
 .creating-box input[type=text], .creating-box button, .creating-box .count-todo {
-  border-radius: 1.14286vh;
   background: none;
-  margin-top: 5px;
   outline: none;
   height: 40px;
   padding: 10px;
@@ -40,11 +44,11 @@
   cursor: pointer;
 }
 
-.outputting-box .todo .todo-label {
+.outputting-box .todo .todo-label, .preview {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
 
@@ -89,16 +93,6 @@ body {
           align-items: center;
 }
 
-#root > div {
-  background-color: #ffffff;
-  height: 66.66667%;
-  border-radius: 2.66667vh;
-  width: 40vh;
-  padding-top: 10px;
-  -webkit-transition: .6s;
-  transition: .6s;
-}
-
 .logo {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -121,7 +115,7 @@ body {
 .outputting-box {
   height: 90%;
   border-radius: 2.66667vh;
-  padding: 10px;
+  padding: 15px;
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -150,7 +144,6 @@ body {
 .outputting-box .todo {
   width: 100%;
   background-color: #ffffff;
-  border-radius: 1.14286vh;
   font-size: 24px;
   margin: 8.8px 0;
   padding-right: 5px;
@@ -162,6 +155,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: .5s;
+  transition: .5s;
+  position: relative;
 }
 
 .outputting-box .todo:first-child {
@@ -173,14 +169,17 @@ body {
 }
 
 .outputting-box .todo input[type=checkbox] {
+  position: absolute;
   min-width: 25px;
   min-height: 25px;
-  margin: 12.5px;
+  top: 12.5px;
+  left: 12.5px;
   cursor: pointer;
 }
 
 .outputting-box .todo .todo-label {
   margin: auto 0;
+  margin-left: 50px;
   width: 100%;
 }
 
@@ -220,7 +219,7 @@ body {
 
 .creating-box {
   margin-top: -70px;
-  height: 180px;
+  height: 200px;
   width: 40vh;
   background-color: #ffffff;
   border-radius: 2.66667vh;
@@ -232,13 +231,13 @@ body {
 }
 
 .creating-box input[type=text] {
-  margin-top: 20px;
+  margin: 20px auto 5px;
   width: 100%;
   cursor: text;
 }
 
 .creating-box button {
-  margin-bottom: 5px;
+  margin: 5px auto;
 }
 
 .creating-box .add-todo, .creating-box .remove-todo {
@@ -256,17 +255,17 @@ body {
 .creating-box .count-todo {
   cursor: text;
   width: 100%;
-  margin: 0;
+  margin: 5px auto;
 }
 
 .preview {
   width: 40vh;
   background-color: #ffffff;
   border-radius: 2vh;
-  font-size: 24px;
+  font-size: 26px;
   margin: 7.8px 0;
-  height: 60px;
-  padding: 15px;
+  height: 45px;
+  padding: 7.5px 15px;
   overflow: hidden;
   -webkit-transition: .5s;
   transition: .5s;

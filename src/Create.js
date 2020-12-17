@@ -1,31 +1,8 @@
-import React, { useRef, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import React from 'react'
 
-function Create({ todos, setTodos, setTitle }) {
-    const todoTitleRef = useRef()
-
-	function addPreview() {
-		setTitle(todoTitleRef.current.value)
-	}
-
-	function addTodo() {
-		const title = todoTitleRef.current.value
-		title && setTodos(prev => [...prev, {id: uuidv4(), title, complete: false}])
-		todoTitleRef.current.value = null
-		setTitle('')
-    }
-    
-	function removeTodo() {
-		const newTodos = todos.filter(todo => !todo.complete)
-		setTodos(newTodos)
-    }
-
+function Create({ todos, addTodo, removeTodo, addPreview, todoTitleRef }) {
     function keyboardHandler(event) {
 		event.keyCode === 13 && addTodo()
-		event.keyCode === 46 && ( 
-            todoTitleRef.current.value = null,
-            setTitle('')
-        )
 	}
 
     return (

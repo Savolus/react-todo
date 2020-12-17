@@ -1,4 +1,5 @@
 import React, { useState , useRef, useEffect } from 'react'
+import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 import Preview from './Preview'
 import Output from './Output'
@@ -11,30 +12,43 @@ import './style/App.css';
 
 const LOCAL_STORAGE_TODOS = 'userTodos.todos'
 const LOCAL_STORAGE_VISIBILITY = 'addBoxVisibility.visibility'
-const LOCAL_STORAGE_STYLE = 'localStyle.css'
+
+const Wraper = styled.div`
+	background-color: #ffffff;
+	height: calc(100% / 1.5);
+	border-radius: calc(100vh / 2.5 / 15);
+	width: calc(100vh / 2.5);
+	padding-top: 10px;
+	transition: .6s;
+	margin-top: ${
+		props => {
+			if (props.animation === 'create') return '-17.5vh'
+			else if (props.animation === 'preview') return '-27.5vh'
+			else return '0'
+		}
+	}
+`
 
 function App() {
-	const [style, setStyle] = useState({ marginTop: "0" })
+	const [animation, setAnimation] = useState('')
 	const [visibility, setVisibility] = useState('hidden')
 	const [src, setSrc] = useState(Show)
 	const [todos, setTodos] = useState([])
 	const [title, setTitle] = useState('')
-	const [prevTitle, setprevTitle] = useState(title)
+	const [prevTitle, setPrevTitle] = useState(title)
+	const todoTitleRef = useRef()
 
 	useEffect(() => {
 		const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS))
 		storedTodos && setTodos(storedTodos)
 		const storedVisibility = localStorage.getItem(LOCAL_STORAGE_VISIBILITY)
 		storedVisibility && setVisibility(storedVisibility)
-		const storedStyle = JSON.parse(localStorage.getItem(LOCAL_STORAGE_STYLE))
-		storedStyle && setStyle(storedStyle)
 	}, [])
 
 	useEffect(() => {
 		localStorage.setItem(LOCAL_STORAGE_TODOS, JSON.stringify(todos))
 		localStorage.setItem(LOCAL_STORAGE_VISIBILITY, visibility)
-		localStorage.setItem(LOCAL_STORAGE_STYLE, JSON.stringify(style))
-	}, [todos, visibility, style])
+	}, [todos, visibility])
 
 	useEffect(() => {
 		const creatingBox = document.querySelector('.creating-box')
@@ -42,35 +56,21 @@ function App() {
 		const input = creatingBox.querySelector('input[type=text]')
 		input.focus()
 
-		visibility === 'hidden' ? 
-			setSrc(Show) : 
+		if (visibility === 'hidden') {
+			setSrc(Show)
+			setPrevTitle(title)
+			setTitle('')
+		} else {
 			setSrc(Hide)
-
-		switch (visibility) {
-			case 'hidden':
-				setprevTitle(title)
-				setTitle('')
-				break
-			case 'visible':
-				setTitle(prevTitle)
-				setprevTitle('')
-				break
+			setTitle(prevTitle)
+			setPrevTitle('')
 		}
 	}, [visibility])
 
 	useEffect(() => {
-		switch (visibility) {
-			case 'hidden':
-				title ?
-					setStyle({ marginTop: "0" }) :
-					setStyle({ marginTop: "0" })
-				break
-			case 'visible':
-				title ?
-					setStyle({ marginTop: "-27.5vh" }) :
-					setStyle({ marginTop: "-17.5vh" })
-				break
-		}
+		visibility === 'visible' ?
+			title ? setAnimation('preview') : setAnimation('create') :
+			setAnimation('')
 	}, [title, visibility])
 
 	function toggleTodo(id) {
@@ -81,24 +81,41 @@ function App() {
 	}
 
 	function toggleVisibility() {
-		switch (visibility) {
-			case 'hidden':
-				setVisibility('visible')
-				break
-			case 'visible':
-				setVisibility('hidden')
-				break
-		}
+		visibility === 'hidden' ?
+			setVisibility('visible') :
+			setVisibility('hidden')
+	}
+
+	function addTodo() {
+		const title = todoTitleRef.current.value
+		title && setTodos(prev => [...prev, {id: uuidv4(), title, complete: false}])
+		todoTitleRef.current.value = null
+		setTitle('')
+    }
+    
+	function removeTodo() {
+		const newTodos = todos.filter(todo => !todo.complete)
+		setTodos(newTodos)
+	}
+	
+	function addPreview() {
+		setTitle(todoTitleRef.current.value)
 	}
 
 	return (
-		<div style={style}>
+		<Wraper animation={animation} >
 			<Logo />
 			<Output todos={todos} toggleTodo={toggleTodo} />
 			<Add src={src} toggleVisibility={toggleVisibility} />
-			<Create todos={todos} setTodos={setTodos} setTitle={setTitle} />
+			<Create 
+				todos={todos}
+				addTodo={addTodo}
+				removeTodo={removeTodo}
+				addPreview={addPreview}
+				todoTitleRef={todoTitleRef}
+			/>
 			{ title && <Preview title={title} /> }
-		</div>
+		</Wraper>
 	)
 }
 

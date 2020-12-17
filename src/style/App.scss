@@ -7,15 +7,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    & > div {
-        background-color: $basicBackground;
-        height: (100% / 1.5);
-        border-radius: $rootWidth / 15;
-        width: $rootWidth;
-        padding-top: 10px;
-        transition: .6s;
-    }
 }
 
 .logo {
@@ -34,7 +25,7 @@
 .outputting-box {
     height: 90%;
     border-radius: $rootWidth / 15;
-    padding: 10px;
+    padding: 15px;
     overflow: hidden;
     overflow-y: scroll;
 
@@ -54,15 +45,18 @@
     .todo {
         width: 100%;
         background-color: $basicBackground;
-        border-radius: $rootWidth / 35;
         font-size: 24px;
         @extend %border404;
+        @extend %border-radius;
         margin: 8.8px 0;
         padding-right: 5px;
         height: $todoHeight;
         display: flex;
         overflow: hidden;
         align-items: center;
+        transition: .5s;
+		position: relative;
+
 
         &:first-child {
             margin-top: 0;
@@ -73,14 +67,17 @@
         }
 
         input[type=checkbox] {
+            position: absolute;
             min-width: $todoHeight / 2;
             min-height: $todoHeight / 2;
-            margin: $todoHeight / 4;
+            top: $todoHeight / 4;
+            left: $todoHeight / 4;
             cursor: pointer;
         }
 
         .todo-label {
             margin: auto 0;
+            margin-left: 50px;
             @extend %text;
             width: 100%;
         }
@@ -121,7 +118,7 @@
 
 .creating-box {
     margin-top: -70px;
-    height: 180px;
+    height: 200px;
     width: $rootWidth;
     background-color: $basicBackground;
     border-radius: $rootWidth / 15;
@@ -133,14 +130,15 @@
 
     input[type=text] {
         @extend %button;
-        margin-top: 20px;
+        // margin-top: 20px;
+        margin: 20px auto 5px;
         width: 100%;
         cursor: text;
     }
 
     button {
         @extend %button;
-        margin-bottom: 5px;
+        margin: 5px auto;
     }
 
     .add-todo, .remove-todo {
@@ -159,7 +157,7 @@
         @extend %button;
         cursor: text;
         width: 100%;
-        margin: 0;
+        margin: 5px auto;
     }
 }
 
@@ -167,11 +165,12 @@
     width: $rootWidth;
     background-color: $basicBackground;
     border-radius: $rootWidth / 20;
-    font-size: 24px;
+    font-size: 26px;
     @extend %border404;
+    @extend %text;
     margin: 7.8px 0;
-    height: 60px;
-    padding: 15px;
+    height: 45px;
+    padding: 7.5px 15px;
     overflow: hidden;
     transition: .5s;
 }

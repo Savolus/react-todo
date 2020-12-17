@@ -1,14 +1,14 @@
 {
-  "name": "some",
+  "name": "todo",
   "version": "2.0.0",
-  "description": "Learning React",
+  "description": "First React project",
   "main": "index.js",
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "^4.0.1",
-    "uuid": "^8.3.1",
-    "web-vitals": "^0.2.4"
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

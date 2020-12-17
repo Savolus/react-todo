@@ -11,11 +11,13 @@ $basicGrey849: rgba(128, 128, 128, 0.849);
     border: .2px solid $basicGrey404;
     box-shadow: .7px .7px .7px $basicGrey404;
 }
+%border-radius {
+    border-radius: $rootWidth / 45;
+}
 %button {
     @extend %border404;
-    border-radius: $rootWidth / 35;
+    @extend %border-radius;
     background: none;
-    margin-top: 5px;
     outline: none;
     height: 40px;
     padding: 10px;
@@ -26,6 +28,6 @@ $basicGrey849: rgba(128, 128, 128, 0.849);
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
