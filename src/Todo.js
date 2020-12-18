@@ -5,7 +5,7 @@ const Wraper = styled.div`
 	&:hover {
 		height: ${ props => props.height || "50px" };
 		& > .todo-label {
-			-webkit-line-clamp: ${ props => props.animate ? 9999 : 0 };
+			-webkit-line-clamp: ${ props => props.animate ? 9999 : 1 };
 		}
 	}
 `
