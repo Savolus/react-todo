@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Create({ todos, addTodo, removeTodo, addPreview, todoTitleRef }) {
+function Create({ todos, addTodo, removeTodo, todoInputRef }) {
     function keyboardHandler(event) {
 		event.keyCode === 13 && addTodo()
 	}
@@ -9,9 +9,8 @@ function Create({ todos, addTodo, removeTodo, addPreview, todoTitleRef }) {
         <div className="creating-box">
             <input 
                 className="input-todo" 
-                ref={todoTitleRef} 
+                ref={todoInputRef} 
                 type="text" 
-                onChange={addPreview} 
                 onKeyUp={keyboardHandler} 
                 placeholder="Todo..." 
             />

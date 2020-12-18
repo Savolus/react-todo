@@ -1,42 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+
+const Wraper = styled.div`
+	&:hover {
+		height: ${ props => props.height || "50px" };
+		& > .todo-label {
+			-webkit-line-clamp: ${ props => props.animate ? 9999 : 0 };
+		}
+	}
+`
 
 function Todo({ todo, toggleTodo }) {
-	function lineClamp(element, lines) {
-		element.style["-webkit-line-clamp"] = lines
-	}
+	const [animate, setAnimate] = useState(false);
+	const [height, setHeight] = useState("50px");
 
-	function resizeUp(e) {
+	function open(e) {
 		const todo = e.target
 		const label = todo.querySelector('label')
 		if (label) {
-			const multiline = ~~(label.innerText.length / 35) + 1
-			todo.style.height = multiline * 50 + 'px'
-			const delay = setTimeout(() => {
-				lineClamp(label, multiline)
-				clearTimeout(delay)
-			}, 150)
+			if (label.scrollHeight !== label.offsetHeight)
+				setHeight(label.scrollHeight + 22.5 + 'px')
+			setAnimate(true)
 		}
 	}
 
-	function resizeDown(e) {
+	function close(e) {
 		const todo = e.target
 		const label = todo.querySelector('label')
 		if (label) {
-			todo.style.height = '50px'
-			const delay = setTimeout(() => {
-				lineClamp(label, 1)
-				clearTimeout(delay)
-			}, 150)
+			setHeight('50px')
+			setAnimate(false)
 		}
 	}
 
 	return (
-		<div className="todo" onMouseEnter={resizeUp} onMouseLeave={resizeDown} >
+		<Wraper 
+			className="todo"
+			height={height} 
+			animate={animate} 
+			onMouseEnter={open}
+			onMouseLeave={close}
+		>
 			<input type="checkbox" checked={todo.complete} onChange={() => toggleTodo(todo.id)}/>
 			<label className="todo-label">
 				{todo.title}
 			</label>
-		</div>
+		</Wraper>
 	)
 }
 

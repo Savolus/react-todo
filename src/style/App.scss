@@ -7,6 +7,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    & > div {
+        background-color: #ffffff;
+        height: calc(100% / 1.5);
+        border-radius: calc(100vh / 2.5 / 15);
+        width: calc(100vh / 2.5);
+        padding-top: 10px;
+        transition: .6s;
+    }
 }
 
 .logo {
@@ -48,15 +57,14 @@
         font-size: 24px;
         @extend %border404;
         @extend %border-radius;
-        margin: 8.8px 0;
+        margin: 14.2px 0;
         padding-right: 5px;
         height: $todoHeight;
         display: flex;
         overflow: hidden;
         align-items: center;
-        transition: .5s;
+        transition: .4s;
 		position: relative;
-
 
         &:first-child {
             margin-top: 0;

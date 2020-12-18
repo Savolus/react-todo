@@ -1,7 +1,6 @@
 import React, { useState , useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
-import Preview from './Preview'
 import Output from './Output'
 import Create from './Create'
 import Logo from './Logo'
@@ -14,29 +13,15 @@ const LOCAL_STORAGE_TODOS = 'userTodos.todos'
 const LOCAL_STORAGE_VISIBILITY = 'addBoxVisibility.visibility'
 
 const Wraper = styled.div`
-	background-color: #ffffff;
-	height: calc(100% / 1.5);
-	border-radius: calc(100vh / 2.5 / 15);
-	width: calc(100vh / 2.5);
-	padding-top: 10px;
-	transition: .6s;
-	margin-top: ${
-		props => {
-			if (props.animation === 'create') return '-17.5vh'
-			else if (props.animation === 'preview') return '-27.5vh'
-			else return '0'
-		}
-	}
+	margin-top: ${ props => props.move ? "-17.5vh" : "0" }
 `
 
 function App() {
-	const [animation, setAnimation] = useState('')
 	const [visibility, setVisibility] = useState('hidden')
-	const [src, setSrc] = useState(Show)
+	const [move, setMove] = useState(false)
 	const [todos, setTodos] = useState([])
-	const [title, setTitle] = useState('')
-	const [prevTitle, setPrevTitle] = useState(title)
-	const todoTitleRef = useRef()
+	const [src, setSrc] = useState(Show)
+	const todoInputRef = useRef()
 
 	useEffect(() => {
 		const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TODOS))
@@ -52,26 +37,19 @@ function App() {
 
 	useEffect(() => {
 		const creatingBox = document.querySelector('.creating-box')
-		creatingBox.style.visibility = visibility
 		const input = creatingBox.querySelector('input[type=text]')
+
+		creatingBox.style.visibility = visibility
 		input.focus()
 
-		if (visibility === 'hidden') {
-			setSrc(Show)
-			setPrevTitle(title)
-			setTitle('')
-		} else {
+		if (visibility === 'visible') {
+			setMove(true)
 			setSrc(Hide)
-			setTitle(prevTitle)
-			setPrevTitle('')
+		} else {
+			setMove(false)
+			setSrc(Show)
 		}
 	}, [visibility])
-
-	useEffect(() => {
-		visibility === 'visible' ?
-			title ? setAnimation('preview') : setAnimation('create') :
-			setAnimation('')
-	}, [title, visibility])
 
 	function toggleTodo(id) {
 		const newTodos = [...todos]
@@ -87,23 +65,18 @@ function App() {
 	}
 
 	function addTodo() {
-		const title = todoTitleRef.current.value
-		title && setTodos(prev => [...prev, {id: uuidv4(), title, complete: false}])
-		todoTitleRef.current.value = null
-		setTitle('')
+		const title = todoInputRef.current.value
+		title && setTodos(prev => [...prev, {id: uuidv4(), title: title.trim(), complete: false}])
+		todoInputRef.current.value = null
     }
     
 	function removeTodo() {
 		const newTodos = todos.filter(todo => !todo.complete)
 		setTodos(newTodos)
 	}
-	
-	function addPreview() {
-		setTitle(todoTitleRef.current.value)
-	}
 
 	return (
-		<Wraper animation={animation} >
+		<Wraper move={move} >
 			<Logo />
 			<Output todos={todos} toggleTodo={toggleTodo} />
 			<Add src={src} toggleVisibility={toggleVisibility} />
@@ -111,10 +84,8 @@ function App() {
 				todos={todos}
 				addTodo={addTodo}
 				removeTodo={removeTodo}
-				addPreview={addPreview}
-				todoTitleRef={todoTitleRef}
+				todoInputRef={todoInputRef}
 			/>
-			{ title && <Preview title={title} /> }
 		</Wraper>
 	)
 }
